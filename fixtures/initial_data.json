@@ -1,0 +1,153 @@
+[
+  {
+    "model": "stocks.product",
+    "pk": 1,
+    "fields": {
+      "title": "Ноутбук Dell XPS 15",
+      "description": "Мощный ноутбук для работы и игр с процессором Intel Core i7"
+    }
+  },
+  {
+    "model": "stocks.product",
+    "pk": 2,
+    "fields": {
+      "title": "Клавиатура Logitech MX Keys",
+      "description": "Беспроводная клавиатура премиум класса"
+    }
+  },
+  {
+    "model": "stocks.product",
+    "pk": 3,
+    "fields": {
+      "title": "Мышь Logitech MX Master 3",
+      "description": "Эргономичная беспроводная мышь"
+    }
+  },
+  {
+    "model": "stocks.product",
+    "pk": 4,
+    "fields": {
+      "title": "Монитор LG UltraWide 34WN80C",
+      "description": "34-дюймовый изогнутый монитор с разрешением QHD"
+    }
+  },
+  {
+    "model": "stocks.product",
+    "pk": 5,
+    "fields": {
+      "title": "Наушники Sony WH-1000XM5",
+      "description": "Беспроводные наушники с активным шумоподавлением"
+    }
+  },
+  {
+    "model": "stocks.stock",
+    "pk": 1,
+    "fields": {
+      "address": "г. Москва, ул. Ленина, 10"
+    }
+  },
+  {
+    "model": "stocks.stock",
+    "pk": 2,
+    "fields": {
+      "address": "г. Санкт-Петербург, Невский проспект, 50"
+    }
+  },
+  {
+    "model": "stocks.stock",
+    "pk": 3,
+    "fields": {
+      "address": "г. Казань, ул. Баумана, 25"
+    }
+  },
+  {
+    "model": "stocks.stockproduct",
+    "pk": 1,
+    "fields": {
+      "stock": 1,
+      "product": 1,
+      "quantity": 25,
+      "price": "89999.00"
+    }
+  },
+  {
+    "model": "stocks.stockproduct",
+    "pk": 2,
+    "fields": {
+      "stock": 1,
+      "product": 2,
+      "quantity": 50,
+      "price": "8999.00"
+    }
+  },
+  {
+    "model": "stocks.stockproduct",
+    "pk": 3,
+    "fields": {
+      "stock": 1,
+      "product": 3,
+      "quantity": 45,
+      "price": "7999.00"
+    }
+  },
+  {
+    "model": "stocks.stockproduct",
+    "pk": 4,
+    "fields": {
+      "stock": 2,
+      "product": 1,
+      "quantity": 15,
+      "price": "89999.00"
+    }
+  },
+  {
+    "model": "stocks.stockproduct",
+    "pk": 5,
+    "fields": {
+      "stock": 2,
+      "product": 4,
+      "quantity": 30,
+      "price": "45999.00"
+    }
+  },
+  {
+    "model": "stocks.stockproduct",
+    "pk": 6,
+    "fields": {
+      "stock": 2,
+      "product": 5,
+      "quantity": 40,
+      "price": "29999.00"
+    }
+  },
+  {
+    "model": "stocks.stockproduct",
+    "pk": 7,
+    "fields": {
+      "stock": 3,
+      "product": 2,
+      "quantity": 60,
+      "price": "8999.00"
+    }
+  },
+  {
+    "model": "stocks.stockproduct",
+    "pk": 8,
+    "fields": {
+      "stock": 3,
+      "product": 3,
+      "quantity": 55,
+      "price": "7999.00"
+    }
+  },
+  {
+    "model": "stocks.stockproduct",
+    "pk": 9,
+    "fields": {
+      "stock": 3,
+      "product": 5,
+      "quantity": 20,
+      "price": "29999.00"
+    }
+  }
+]

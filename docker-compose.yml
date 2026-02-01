@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: stocks_postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-stocks_db}
+      POSTGRES_USER: ${POSTGRES_USER:-stocks_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-stocks_pass}
+    networks:
+      - stocks_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-stocks_user} -d ${POSTGRES_DB:-stocks_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stocks_backend
+    command: >
+      sh -c "python manage.py migrate &&
+             gunicorn --bind 0.0.0.0:8000 --workers 3 --timeout 120 stocks_products.wsgi:application"
+    volumes:
+      - .:/app
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    environment:
+      DEBUG: ${DEBUG:-False}
+      SECRET_KEY: ${SECRET_KEY:-django-insecure-change-this-key}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS:-localhost,127.0.0.1}
+      POSTGRES_DB: ${POSTGRES_DB:-stocks_db}
+      POSTGRES_USER: ${POSTGRES_USER:-stocks_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-stocks_pass}
+      DB_HOST: ${DB_HOST:-postgres}
+      DB_PORT: ${DB_PORT:-5432}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - stocks_network
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    container_name: stocks_nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - static_volume:/app/staticfiles:ro
+      - media_volume:/app/media:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - stocks_network
+    restart: unless-stopped
+
+networks:
+  stocks_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
